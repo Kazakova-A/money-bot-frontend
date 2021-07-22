@@ -1,0 +1,6 @@
+@import '../../styles/color.css';
+@import '../../styles/theme.scss';
+
+.link { 
+    @extend %link;
+}

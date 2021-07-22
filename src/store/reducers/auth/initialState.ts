@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
   loadingUserInfo: false,
   error: null,
   token: null,
-  email: '',
+  loginPhase: 0,
   userName: '',
   role: null,
 };

@@ -1,0 +1,31 @@
+
+// flex
+%flexCenterCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%flexStartCenter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+%flexCenterStart {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+%flexBetweenCenter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// typography
+%link {
+    text-decoration: none;
+    color: var(--white);
+}

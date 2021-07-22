@@ -1,5 +1,5 @@
-import Login from 'src/pages/Login';
-import { RedirectHoc } from 'src/utils/hocs';
+import Login from 'pages/Login';
+import { RedirectHoc } from 'utils/hocs';
 
 import { ROUTES } from './constants';
 

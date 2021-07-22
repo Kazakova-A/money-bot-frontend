@@ -1,13 +1,36 @@
-import { Action, ActionsUnion, createAction } from 'src/store/helpers/redux';
-import {
-  AuthActionTypes,
-  LogInRequest,
-} from 'src/store/types/auth';
+import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
+import { AuthActionTypes, LoginPhases } from 'store/types/auth';
 
 export const AuthActions = {
-  logInRequest: (payload: LogInRequest): Action<
+  sendConfirmCodeRequest: (payload: string): Action<
+  AuthActionTypes.SEND_CONFIRM_CODE_REQUEST,
+  string
+  > => createAction(
+    AuthActionTypes.SEND_CONFIRM_CODE_REQUEST,
+    payload,
+  ),
+  sendConfirmCodeSuccess: (): Action<
+  AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS
+  > => createAction(
+    AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS,
+  ),
+  sendConfirmCodeError: (): Action<
+  AuthActionTypes.SEND_CONFIRM_CODE_ERROR
+  > => createAction(
+    AuthActionTypes.SEND_CONFIRM_CODE_ERROR,
+  ),
+
+  changeLoginPhase: (payload: LoginPhases): Action<
+  AuthActionTypes.CHANGE_LOGIN_PHASE,
+  number
+  > => createAction(
+    AuthActionTypes.CHANGE_LOGIN_PHASE,
+    payload,
+  ),
+
+  logInRequest: (payload: number): Action<
   AuthActionTypes.LOG_IN_REQUEST,
-  LogInRequest
+  number
   > => createAction(
     AuthActionTypes.LOG_IN_REQUEST,
     payload,

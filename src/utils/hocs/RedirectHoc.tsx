@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { ROUTES } from 'src/routes/constants';
+import { ROUTES } from 'routes/constants';
 
 interface UseRedirectProps {
   component: React.FC;
