@@ -35,6 +35,7 @@ export const AuthActions = {
     AuthActionTypes.LOG_IN_REQUEST,
     payload,
   ),
+  // TODO: add payload
   logInSuccess: (): Action<
   AuthActionTypes.LOG_IN_SUCCESS
   > => createAction(
