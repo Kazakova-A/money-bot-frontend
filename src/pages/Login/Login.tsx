@@ -16,10 +16,11 @@ import styles from './Login.module.scss';
 const Login = (): JSX.Element => {
   const dispath = useDispatch();
   const [username, setUsername] = useState<string>('');
-  const [confirmCode, setConfirmCode] = useState<string>('');
+  const [confirmCode, setConfirmCode] = useState<string | number>('');
 
   const isLoading = useSelector<RootState, boolean>((state: RootState) => state.auth.isLoading);
   const loginPhase = useSelector<RootState, LoginPhases>((state: RootState) => state.auth.loginPhase);
+  const userName = useSelector<RootState, string>((state: RootState) => state.auth.userName);
 
   const onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -36,6 +37,12 @@ const Login = (): JSX.Element => {
 
   const goBack = () => {
     dispath(AuthActions.changeLoginPhase(LoginPhases.sendConfirmation));
+    setConfirmCode('');
+  };
+
+  const confirmLogin = () => {
+    console.log('----', username, confirmCode);
+    dispath(AuthActions.logInRequest({ name: userName, token: confirmCode as number }));
   };
 
   return (
@@ -87,8 +94,8 @@ const Login = (): JSX.Element => {
             <Button
               variant="contained"
               color="primary"
-              onClick={goToNextStep}
-              disabled={isLoading || !confirmCode.trim()}
+              onClick={confirmLogin}
+              disabled={isLoading || !confirmCode.toString().trim()}
             >
               Ok
             </Button>

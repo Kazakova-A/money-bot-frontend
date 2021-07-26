@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { ROUTES } from 'routes/constants';
+import getToken from 'utils/helpers/getToken';
 
 interface UseRedirectProps {
   component: React.FC;
@@ -13,7 +14,7 @@ const RedirectHoc = ({
   component: Component,
 }: UseRedirectProps) => (
   function Auth() {
-    const isAuthenticated = true; // TODO: set getting token from localstorage
+    const isAuthenticated = getToken();
     if (!isAuthenticated) {
       if (isPrivate) {
         return <Redirect to={{ pathname: ROUTES.login }} />;

@@ -1,5 +1,12 @@
+import { RehydrateAction } from 'redux-persist';
+
 import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
-import { AuthActionTypes, LoginPhases } from 'store/types/auth';
+import {
+  AuthActionTypes,
+  LoginPhases,
+  ConfirmLoginReq,
+  ConfirmLoginSuccess,
+} from 'store/types/auth';
 
 export const AuthActions = {
   sendConfirmCodeRequest: (payload: string): Action<
@@ -9,10 +16,12 @@ export const AuthActions = {
     AuthActionTypes.SEND_CONFIRM_CODE_REQUEST,
     payload,
   ),
-  sendConfirmCodeSuccess: (): Action<
-  AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS
+  sendConfirmCodeSuccess: (payload: string): Action<
+  AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS,
+  string
   > => createAction(
     AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS,
+    payload,
   ),
   sendConfirmCodeError: (): Action<
   AuthActionTypes.SEND_CONFIRM_CODE_ERROR
@@ -28,18 +37,20 @@ export const AuthActions = {
     payload,
   ),
 
-  logInRequest: (payload: number): Action<
+  logInRequest: (payload: ConfirmLoginReq): Action<
   AuthActionTypes.LOG_IN_REQUEST,
-  number
+  ConfirmLoginReq
   > => createAction(
     AuthActionTypes.LOG_IN_REQUEST,
     payload,
   ),
   // TODO: add payload
-  logInSuccess: (): Action<
-  AuthActionTypes.LOG_IN_SUCCESS
+  logInSuccess: (payload: ConfirmLoginSuccess): Action<
+  AuthActionTypes.LOG_IN_SUCCESS,
+  ConfirmLoginSuccess
   > => createAction(
     AuthActionTypes.LOG_IN_SUCCESS,
+    payload,
   ),
   logInError: (): Action<
   AuthActionTypes.LOG_IN_ERROR
@@ -55,4 +66,4 @@ export const AuthActions = {
 };
 
 export type AuthActionsUnion = ActionsUnion<
-  typeof AuthActions>;
+  typeof AuthActions> | RehydrateAction;

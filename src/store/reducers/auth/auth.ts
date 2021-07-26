@@ -1,3 +1,5 @@
+import { REHYDRATE } from 'redux-persist/lib/constants';
+
 import { AuthActionTypes } from 'store/types/auth';
 import { AuthActionsUnion } from 'store/actions/auth';
 
@@ -9,6 +11,12 @@ const authReducer = (
   action: AuthActionsUnion,
 ): AuthState => {
   switch (action.type) {
+    case REHYDRATE: {
+      return {
+        ...state,
+        userName: state.userName,
+      };
+    }
     case AuthActionTypes.LOG_IN_REQUEST:
     case AuthActionTypes.SEND_CONFIRM_CODE_REQUEST: {
       return {
@@ -16,11 +24,18 @@ const authReducer = (
         isLoading: true,
       };
     }
-    case AuthActionTypes.LOG_IN_SUCCESS:
     case AuthActionTypes.SEND_CONFIRM_CODE_SUCCESS: {
       return {
         ...state,
+        userName: action.payload,
         isLoading: false,
+      };
+    }
+    case AuthActionTypes.LOG_IN_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        userName: action.payload.name,
         error: null,
       };
     }

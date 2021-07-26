@@ -1,17 +1,12 @@
 import React, { memo } from 'react';
-import {
-  BrowserRouter,
-  Switch,
-} from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import { mapRoutes } from './utils';
 import { ROUTE } from './routes';
 
 const RouterMap: React.FC = () => (
-  <BrowserRouter>
-    <Switch>
-      {mapRoutes(ROUTE)}
-    </Switch>
-  </BrowserRouter>
+  <Switch>
+    {mapRoutes(ROUTE)}
+  </Switch>
 );
 export default memo(RouterMap);

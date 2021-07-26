@@ -16,3 +16,16 @@ export enum LoginPhases {
   sendConfirmation = 0,
   confirmLogin = 1,
 }
+
+export interface ConfirmLoginReq {
+  name: string;
+  token: number;
+}
+
+export interface ConfirmLoginSuccess {
+  name: string;
+  tokens: {
+    refreshToken: string;
+    accessToken: string;
+  }
+}
