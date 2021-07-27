@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { ConfirmLoginReq, ConfirmLoginSuccess } from 'store/types/auth';
 import { ErrorResponse, ResponseObject } from './types';
@@ -30,7 +30,6 @@ export const confirmLogin = async ({ name, token }: ConfirmLoginReq): Promise<Co
       },
     );
 
-    console.log('=======data', data);
     return data;
   } catch (error) {
     const e = error as AxiosError<ErrorResponse>;

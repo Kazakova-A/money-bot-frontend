@@ -11,7 +11,7 @@ import { UtilsActions } from 'store/actions/utils';
 import { PickAction } from 'store/helpers/redux';
 import { sendConfirmationCode, confirmLogin } from 'api/auth';
 import { ROUTES } from 'routes/constants';
-import saveToken from 'utils/helpers/saveTokens';
+import { saveToken, removeTokens } from 'utils/helpers/tokens';
 
 function* sendConfirmCodeSaga(action: PickAction<
 AuthActionsUnion, AuthActionTypes.SEND_CONFIRM_CODE_REQUEST>): Generator {
@@ -54,7 +54,7 @@ AuthActionsUnion, AuthActionTypes.LOG_IN_REQUEST>): Generator {
 }
 
 function* logoutSaga(): Generator {
-  localStorage.removeItem('token');
+  removeTokens();
   yield put(push(ROUTES.login));
 }
 

@@ -1,5 +1,5 @@
 import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
-import { CostsActionTypes } from 'store/types/costs';
+import { CostsActionTypes, CostsRecord } from 'store/types/costs';
 
 export const CostsActions = {
   getCostsRequest: (payload: any): Action<
@@ -9,11 +9,12 @@ export const CostsActions = {
     CostsActionTypes.GET_COSTS_REQUEST,
     payload,
   ),
-  // TODO: add expected payload
-  getCostsSuccess: (): Action<
-  CostsActionTypes.GET_COSTS_SUCCESS
+  getCostsSuccess: (payload: CostsRecord[]): Action<
+  CostsActionTypes.GET_COSTS_SUCCESS,
+  CostsRecord[]
   > => createAction(
     CostsActionTypes.GET_COSTS_SUCCESS,
+    payload,
   ),
   getCostsError: (): Action<
   CostsActionTypes.GET_COSTS_ERROR

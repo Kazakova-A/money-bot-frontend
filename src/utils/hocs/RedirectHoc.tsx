@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { ROUTES } from 'routes/constants';
-import getToken from 'utils/helpers/getToken';
+import { getToken } from 'utils/helpers/tokens';
 
 interface UseRedirectProps {
   component: React.FC;

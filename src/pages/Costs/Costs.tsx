@@ -1,18 +1,24 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container } from '@material-ui/core';
+import { Container, CircularProgress } from '@material-ui/core';
+import moment from 'moment';
 
-import { CostsActions } from 'store/actions/costs';
 import Table from 'components/Table';
+import { CostsActions } from 'store/actions/costs';
+import { RootState } from 'store/reducers';
+import { CostsRecord } from 'store/types/costs';
 
+import { HEADERS } from './constants';
 import styles from './Costs.module.scss';
 
 const Costs = (): JSX.Element => {
   const dispatch = useDispatch();
-
-  const sortData = () => {
-    console.log('sort');
-  };
+  const isLoading = useSelector<RootState, boolean>((state: RootState) => state.costs.isLoading);
+  const list = useSelector<RootState, CostsRecord[]>((state: RootState) => state.costs.list);
+  const rows = useMemo((): CostsRecord[] => list.map((item: CostsRecord): CostsRecord => ({
+    ...item,
+    createdAt: moment(item.createdAt).format('MM-DD-YYYY'),
+  })), [list]);
 
   useEffect(() => {
     dispatch(CostsActions.getCostsRequest({}));
@@ -20,7 +26,10 @@ const Costs = (): JSX.Element => {
 
   return (
     <Container className={styles.container}>
-      <Table headers={[]} rows={[]} />
+      {isLoading && <div className={styles.container}><CircularProgress /></div>}
+      {!isLoading && (
+        <Table headers={HEADERS} rows={rows} />
+      )}
     </Container>
   );
 };

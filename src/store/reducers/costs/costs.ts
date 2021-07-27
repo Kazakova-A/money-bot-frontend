@@ -18,6 +18,7 @@ const costsReducer = (
     case CostsActionTypes.GET_COSTS_SUCCESS: {
       return {
         ...state,
+        list: action.payload,
         isLoading: false,
       };
     }

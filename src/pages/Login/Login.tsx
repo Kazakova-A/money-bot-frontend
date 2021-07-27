@@ -41,7 +41,6 @@ const Login = (): JSX.Element => {
   };
 
   const confirmLogin = () => {
-    console.log('----', username, confirmCode);
     dispath(AuthActions.logInRequest({ name: userName, token: confirmCode as number }));
   };
 
