@@ -3,5 +3,14 @@
 
 .container {
     margin: 50px 0;
+    width: 100%;
     @extend %flexCenterCenter;
+
+    .tableContainer {
+        width: 100%;
+    }
+
+    .toolbar {
+        @extend %flexBetweenCenter;
+    }
 }

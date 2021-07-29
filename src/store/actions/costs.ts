@@ -2,9 +2,10 @@ import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
 import { CostsActionTypes, CostsRecord } from 'store/types/costs';
 
 export const CostsActions = {
-  getCostsRequest: (payload: any): Action<
+  // TODO: set valid payload types
+  getCostsRequest: (payload: { sortType: string | unknown, date?: string | unknown }): Action<
   CostsActionTypes.GET_COSTS_REQUEST,
-  any
+  { sortType: string | unknown }
   > => createAction(
     CostsActionTypes.GET_COSTS_REQUEST,
     payload,

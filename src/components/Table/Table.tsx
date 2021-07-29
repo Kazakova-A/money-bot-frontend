@@ -35,9 +35,9 @@ const TableComponent = ({
     </TableHead>
     <TableBody>
       {rows.map((item: CostsRecord) => (
-        <TableRow>
+        <TableRow key={item.createdAt}>
           {headers.map(({ id }: Headers) => (
-            <TableCell>
+            <TableCell key={id}>
               {item[id]}
             </TableCell>
           ))}

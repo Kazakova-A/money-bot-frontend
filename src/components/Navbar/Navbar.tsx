@@ -13,7 +13,11 @@ const Navbar = (): JSX.Element => (
   <List>
     {isAuth && MENU.map((item) => (
       <ListItem>
-        <Link to={item.link} className={styles.link}>
+        <Link
+          to={item.link}
+          key={item.title}
+          className={styles.link}
+        >
           {item.title}
         </Link>
       </ListItem>
