@@ -10,8 +10,11 @@ import ENDPOINTS from './endpoints';
 // TODO: set parameterst types when it will be known
 export const getCostsStatistic = async ({ sortType = '' }: any): Promise<CostsRecord[]> => {
   try {
+    const page = localStorage.getItem('page') || '0';
+    const pageI = parseInt(page, 10);
+    console.log(pageI);
     const { data }: ResponseObject<CostsRecord[]> = await axios.get(
-      `${ENDPOINTS.costs}?type=${sortType}`,
+      `${ENDPOINTS.costs}?type=${sortType}&page=${pageI}`,
       { headers: getHeaders() },
     );
 

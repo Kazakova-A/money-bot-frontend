@@ -7,6 +7,7 @@ import {
   CircularProgress,
   TableContainer,
   Paper,
+  Button,
 } from '@material-ui/core';
 import moment from 'moment';
 
@@ -20,8 +21,8 @@ import { HEADERS } from './constants';
 import styles from './Costs.module.scss';
 
 const Costs = (): JSX.Element => {
+  let page = 0;
   const dispatch = useDispatch();
-
   const isLoading = useSelector<RootState, boolean>(
     (state: RootState) => state.costs.isLoading,
   );
@@ -53,6 +54,22 @@ const Costs = (): JSX.Element => {
     console.log('vvvvdate', date);
     // dispatch(CostsActions.getCostsRequest({ sortType, time: date}));
   };
+
+  function goToPrevPage() {
+    if (page !== 0) {
+      page -= 1;
+    } else {
+      page = 0;
+    }
+    localStorage.setItem('page', String(page));
+    console.log(page);
+  }
+
+  function goToNextPage() {
+    page += 1;
+    localStorage.setItem('page', String(page));
+    console.log(page);
+  }
 
   useEffect(() => {
     dispatch(CostsActions.getCostsRequest({ sortType: '' }));
@@ -94,6 +111,19 @@ const Costs = (): JSX.Element => {
           </TableContainer>
         </Paper>
       )}
+      <Button
+        variant="contained"
+        onClick={goToPrevPage}
+      >
+        Prev
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={goToNextPage}
+      >
+        Next
+      </Button>
     </Container>
   );
 };
