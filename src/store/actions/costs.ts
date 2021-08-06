@@ -3,9 +3,10 @@ import { CostsActionTypes, CostsRecord } from 'store/types/costs';
 
 export const CostsActions = {
   // TODO: set valid payload types
-  getCostsRequest: (payload: { sortType: string | unknown, date?: string | unknown }): Action<
+  getCostsRequest: (payload: { sortType: string | unknown, date?: string | unknown, currentPage: number }): Action<
   CostsActionTypes.GET_COSTS_REQUEST,
-  { sortType: string | unknown }
+  { sortType: string | unknown,
+    currentPage: number }
   > => createAction(
     CostsActionTypes.GET_COSTS_REQUEST,
     payload,
@@ -21,6 +22,13 @@ export const CostsActions = {
   CostsActionTypes.GET_COSTS_ERROR
   > => createAction(
     CostsActionTypes.GET_COSTS_ERROR,
+  ),
+  getNextPage: (page: number): Action<
+  CostsActionTypes.GET_NEXT_PAGE,
+  number
+  > => createAction(
+    CostsActionTypes.GET_NEXT_PAGE,
+    page,
   ),
 };
 

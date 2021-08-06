@@ -21,7 +21,6 @@ import { HEADERS } from './constants';
 import styles from './Costs.module.scss';
 
 const Costs = (): JSX.Element => {
-  let page = 0;
   const dispatch = useDispatch();
   const isLoading = useSelector<RootState, boolean>(
     (state: RootState) => state.costs.isLoading,
@@ -29,6 +28,12 @@ const Costs = (): JSX.Element => {
   const list = useSelector<RootState, CostsRecord[]>(
     (state: RootState) => state.costs.list,
   );
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    CostsActions.getNextPage(currentPage);
+  }, [currentPage]);
 
   const formatedRows = useMemo(
     (): CostsRecord[] => list.map(
@@ -56,24 +61,17 @@ const Costs = (): JSX.Element => {
   };
 
   function goToPrevPage() {
-    if (page !== 0) {
-      page -= 1;
-    } else {
-      page = 0;
-    }
-    localStorage.setItem('page', String(page));
-    console.log(page);
+    setCurrentPage(currentPage - 1);
+    console.log(currentPage);
   }
 
   function goToNextPage() {
-    page += 1;
-    localStorage.setItem('page', String(page));
-    console.log(page);
+    setCurrentPage(currentPage + 1);
   }
 
   useEffect(() => {
-    dispatch(CostsActions.getCostsRequest({ sortType: '' }));
-  }, [dispatch]);
+    dispatch(CostsActions.getCostsRequest({ sortType: '', currentPage }));
+  }, [dispatch, currentPage]);
 
   return (
     <Container className={styles.container}>

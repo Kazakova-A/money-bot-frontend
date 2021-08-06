@@ -28,6 +28,14 @@ const costsReducer = (
         isLoading: false,
       };
     }
+    case CostsActionTypes.GET_NEXT_PAGE: {
+      return {
+        ...state,
+        pagination: {
+          currentPage: action.payload,
+        },
+      };
+    }
     default: return state;
   }
 };

@@ -3,18 +3,16 @@ import axios, { AxiosError } from 'axios';
 
 import { CostsRecord } from 'store/types/costs';
 import getHeaders from 'utils/helpers/getHeaders';
-
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/reducers';
 import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 
 // TODO: set parameterst types when it will be known
-export const getCostsStatistic = async ({ sortType = '' }: any): Promise<CostsRecord[]> => {
+export const getCostsStatistic = async ({ sortType = '', currentPage }: any): Promise<CostsRecord[]> => {
   try {
-    const page = localStorage.getItem('page') || '0';
-    const pageI = parseInt(page, 10);
-    console.log(pageI);
     const { data }: ResponseObject<CostsRecord[]> = await axios.get(
-      `${ENDPOINTS.costs}?type=${sortType}&page=${pageI}`,
+      `${ENDPOINTS.costs}?type=${sortType}&page=${currentPage}`,
       { headers: getHeaders() },
     );
 
