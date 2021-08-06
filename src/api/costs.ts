@@ -3,8 +3,6 @@ import axios, { AxiosError } from 'axios';
 
 import { CostsRecord } from 'store/types/costs';
 import getHeaders from 'utils/helpers/getHeaders';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store/reducers';
 import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 

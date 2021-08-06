@@ -29,7 +29,7 @@ const Costs = (): JSX.Element => {
     (state: RootState) => state.costs.list,
   );
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     CostsActions.getNextPage(currentPage);
@@ -60,14 +60,13 @@ const Costs = (): JSX.Element => {
     // dispatch(CostsActions.getCostsRequest({ sortType, time: date}));
   };
 
-  function goToPrevPage() {
+  const goToPrevPage = () => {
     setCurrentPage(currentPage - 1);
-    console.log(currentPage);
-  }
+  };
 
-  function goToNextPage() {
+  const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
-  }
+  };
 
   useEffect(() => {
     dispatch(CostsActions.getCostsRequest({ sortType: '', currentPage }));
