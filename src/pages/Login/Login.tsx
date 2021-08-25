@@ -57,6 +57,7 @@ const Login = (): JSX.Element => {
               onChange={onUsernameChange}
               variant="outlined"
               label="Username"
+              placeholder="without @"
               className={styles.input}
               size="small"
             />

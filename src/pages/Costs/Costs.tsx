@@ -50,8 +50,7 @@ const Costs = (): JSX.Element => {
   const sortList = (type?: string) => {
     // TODO: change on the filer from thebackend when api will be ready
     const sortedRows = formatedRows.filter((item: CostsRecord) => (type ? item.type === type : item));
-
-    setRows(sortedRows);
+    setRows(sortedRows.reverse());
     // dispatch(CostsActions.getCostsRequest({ sortType }));
   };
 
