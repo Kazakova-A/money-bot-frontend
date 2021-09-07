@@ -7,10 +7,16 @@ import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 
 // TODO: set parameterst types when it will be known
-export const getCostsStatistic = async ({ sortType = '', currentPage }: any): Promise<CostsRecord[]> => {
+export const getCostsStatistic = async ({
+  sortType = '',
+  currentPage,
+  date,
+  dateStart,
+  dateEnd,
+}: any): Promise<CostsRecord[]> => {
   try {
     const { data }: ResponseObject<CostsRecord[]> = await axios.get(
-      `${ENDPOINTS.costs}?type=${sortType}&page=${currentPage}`,
+      `${ENDPOINTS.costs}?type=${sortType}&page=${currentPage}&createdAt=${date}&dateStart=${dateStart}&dateEnd=${dateEnd}`,
       { headers: getHeaders() },
     );
 

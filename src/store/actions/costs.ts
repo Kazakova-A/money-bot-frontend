@@ -3,10 +3,21 @@ import { CostsActionTypes, CostsRecord } from 'store/types/costs';
 
 export const CostsActions = {
   // TODO: set valid payload types
-  getCostsRequest: (payload: { sortType: string | unknown, date?: string | unknown, currentPage: number }): Action<
+  getCostsRequest: (
+    payload: {
+      sortType: string | unknown,
+      date?: string,
+      currentPage: number,
+      dateStart?: number,
+      dateEnd?: number
+    },
+  ): Action<
   CostsActionTypes.GET_COSTS_REQUEST,
   { sortType: string | unknown,
-    currentPage: number }
+    currentPage: number,
+    date?: string,
+    dateStart?: number,
+    dateEnd?: number }
   > => createAction(
     CostsActionTypes.GET_COSTS_REQUEST,
     payload,
@@ -30,6 +41,12 @@ export const CostsActions = {
     CostsActionTypes.GET_NEXT_PAGE,
     page,
   ),
+  /* getForDate: (payload: { currentPage: number, dateStart?: number | unknown, dateEnd?: number | unknown }): Action<
+  CostsActionTypes.GET_DATE_PERIOD
+  > => createAction(
+    CostsActionTypes.GET_DATE_PERIOD,
+    payload,
+  ), */
 };
 
 export type CostsActionsUnion = ActionsUnion<

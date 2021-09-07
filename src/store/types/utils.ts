@@ -13,6 +13,9 @@ export interface NotificationTypes {
 
 export interface Pagination {
   currentPage: number;
+  date?: string;
+  dateStart? : number;
+  dateEnd?: number;
   limit?: number;
   totalPages?: number;
 }

@@ -30,19 +30,18 @@ const Costs = (): JSX.Element => {
   );
 
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [dateStart, setDateStart] = useState<number>();
+  const [dateEnd, setDateEnd] = useState<number>();
 
   useEffect(() => {
     CostsActions.getNextPage(currentPage);
   }, [currentPage]);
 
-  const formatedRows = useMemo(
-    (): CostsRecord[] => list.map(
-      (item: CostsRecord): CostsRecord => ({
-        ...item,
-        createdAt: moment(item.createdAt).format('MM-DD-YYYY'),
-      }),
-    ),
-    [list],
+  const formatedRows : CostsRecord[] = list.map(
+    (item: CostsRecord): CostsRecord => ({
+      ...item,
+      createdAt: moment(item.createdAt).format('MM-DD-YYYY'),
+    }),
   );
 
   const [rows, setRows] = useState<CostsRecord[]>(formatedRows);
@@ -54,10 +53,26 @@ const Costs = (): JSX.Element => {
     // dispatch(CostsActions.getCostsRequest({ sortType }));
   };
 
-  const handleDateChanging = (date?: string) => {
+  const handleDateStartChanging = (date?: string) => {
     console.log('vvvvdate', date);
-    // dispatch(CostsActions.getCostsRequest({ sortType, time: date}));
+    setDateStart(parseInt(date || '0', 10));
+    console.log(dateStart);
   };
+
+  const handleDateEndChanging = (date?: string) => {
+    console.log('vvvvdate', date);
+    setDateEnd(parseInt(date || '0', 10));
+    // console.log(dateEnd);
+  };
+
+  /* const setSortDataValue = () => {
+    if (dateStart && dateEnd) {
+      const sortedRows = formatedRows.filter((item: CostsRecord) => {
+        dateStart && dateEnd ? (Date.parse(item.createdAt) >= dateStart && Date.parse(item.createdAt) <= dateEnd) : item;
+      });
+      setRows(sortedRows);
+    }
+  }; */
 
   const goToPrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -68,8 +83,13 @@ const Costs = (): JSX.Element => {
   };
 
   useEffect(() => {
-    dispatch(CostsActions.getCostsRequest({ sortType: '', currentPage }));
-  }, [dispatch, currentPage]);
+    dispatch(CostsActions.getCostsRequest({
+      sortType: '',
+      currentPage,
+      dateStart,
+      dateEnd,
+    }));
+  }, [dispatch, currentPage, dateStart, dateEnd]);
 
   return (
     <Container className={styles.container}>
@@ -82,7 +102,8 @@ const Costs = (): JSX.Element => {
         <Paper className={styles.tableContainer}>
           <ToolBar
             handleSort={sortList}
-            handleDateChanging={handleDateChanging}
+            handleDateStartChanging={handleDateStartChanging}
+            handleDateEndChanging={handleDateEndChanging}
           />
           {/* <Toolbar>
             <Select

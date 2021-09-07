@@ -17,18 +17,27 @@ import styles from './Costs.module.scss';
 
 interface ToolbarProps {
   handleSort: (type?: string) => void;
-  handleDateChanging: (date?: string) => void;
+  handleDateStartChanging: (date?: string) => void;
+  handleDateEndChanging: (date?: string) => void;
 }
 
-const ToolBar = ({ handleSort, handleDateChanging }: ToolbarProps): JSX.Element => {
+const ToolBar = ({ handleSort, handleDateStartChanging, handleDateEndChanging }: ToolbarProps): JSX.Element => {
   const [sortType, setSortType] = useState<string | unknown>('');
-  const [selectedDate, setSelectedDate] = useState<moment.Moment | null>(moment());
-  const [inputValue, setInputValue] = useState<string>(moment().format('YYYY-MM-DD'));
+  const [selectedStartDate, setSelectedStartDate] = useState<moment.Moment | null>(moment());
+  const [selectedEndDate, setSelectedEndDate] = useState<moment.Moment | null>(moment());
+  const [inputStartValue, setInputStartValue] = useState<string>(moment().format('YYYY-MM-DD'));
+  const [inputEndValue, setInputEndValue] = useState<string>(moment().format('YYYY-MM-DD'));
 
-  const handleDateChange = (date: React.SetStateAction<moment.Moment | null>, value?: string | null | undefined) => {
-    setSelectedDate(date);
-    setInputValue(value as string);
-    handleDateChanging(moment(value).format('x'));
+  const handleDateStartChange = (date: React.SetStateAction<moment.Moment | null>, value?: string | null | undefined) => {
+    setSelectedStartDate(date);
+    setInputStartValue(value as string);
+    handleDateStartChanging(moment(value).format('x'));
+  };
+
+  const handleDateEndChange = (date: React.SetStateAction<moment.Moment | null>, value?: string | null | undefined) => {
+    setSelectedEndDate(date);
+    setInputEndValue(value as string);
+    handleDateEndChanging(moment(value).format('x'));
   };
 
   const handleSortChange = (
@@ -59,13 +68,24 @@ const ToolBar = ({ handleSort, handleDateChanging }: ToolbarProps): JSX.Element 
         ))}
       </Select>
       <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+        От:
         <KeyboardDatePicker
           autoOk
           showTodayButton
-          value={selectedDate}
+          value={selectedStartDate}
           format="YYYY-MM-DD"
-          inputValue={inputValue}
-          onChange={handleDateChange}
+          inputValue={inputStartValue}
+          onChange={handleDateStartChange}
+          rifmFormatter={dateFormatter}
+        />
+        До:
+        <KeyboardDatePicker
+          autoOk
+          showTodayButton
+          value={selectedEndDate}
+          format="YYYY-MM-DD"
+          inputValue={inputEndValue}
+          onChange={handleDateEndChange}
           rifmFormatter={dateFormatter}
         />
       </MuiPickersUtilsProvider>
