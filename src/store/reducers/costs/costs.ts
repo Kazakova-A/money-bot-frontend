@@ -36,11 +36,6 @@ const costsReducer = (
         },
       };
     }
-    /* case CostsActionTypes.GET_DATE_PERIOD: {
-      return {
-        ...state,
-      };
-    } */
     default: return state;
   }
 };

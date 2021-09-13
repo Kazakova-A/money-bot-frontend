@@ -18,7 +18,7 @@
     "import/no-unresolved": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off",
-    "max-len": [2, { "code": 120 }],
+    "max-len": [2, { "code": 125 }],
     "linebreak-style": 0
   }
 }

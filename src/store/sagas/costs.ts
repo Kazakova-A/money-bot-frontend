@@ -1,7 +1,6 @@
 import {
   put,
   takeLatest,
-  delay,
   call,
 } from 'redux-saga/effects';
 
@@ -17,7 +16,7 @@ CostsActionsUnion, CostsActionTypes.GET_COSTS_REQUEST>): Generator {
   try {
     // TODO: remove delay when api will be ready
     const res = (yield call(getCostsStatistic, action.payload)) as CostsRecord[];
-    yield delay(1000);
+    // yield delay(1000);
     yield put(CostsActions.getCostsSuccess(res));
   } catch (e) {
     const { message } = e as Error;

@@ -1,5 +1,5 @@
 import React, {
-  memo, useEffect, useMemo, useState,
+  memo, useEffect, useState,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -33,10 +33,6 @@ const Costs = (): JSX.Element => {
   const [dateStart, setDateStart] = useState<number>();
   const [dateEnd, setDateEnd] = useState<number>();
 
-  useEffect(() => {
-    CostsActions.getNextPage(currentPage);
-  }, [currentPage]);
-
   const formatedRows : CostsRecord[] = list.map(
     (item: CostsRecord): CostsRecord => ({
       ...item,
@@ -50,36 +46,49 @@ const Costs = (): JSX.Element => {
     // TODO: change on the filer from thebackend when api will be ready
     const sortedRows = formatedRows.filter((item: CostsRecord) => (type ? item.type === type : item));
     setRows(sortedRows.reverse());
-    // dispatch(CostsActions.getCostsRequest({ sortType }));
+    dispatch(CostsActions.getCostsRequest({
+      sortType: '',
+      currentPage,
+      dateStart,
+      dateEnd,
+    }));
   };
 
   const handleDateStartChanging = (date?: string) => {
-    console.log('vvvvdate', date);
-    setDateStart(parseInt(date || '0', 10));
-    console.log(dateStart);
+    setDateStart(parseInt(date || '1609448400000', 10));
   };
 
   const handleDateEndChanging = (date?: string) => {
-    console.log('vvvvdate', date);
-    setDateEnd(parseInt(date || '0', 10));
-    // console.log(dateEnd);
+    setDateEnd(parseInt(date || '3187285200000', 10));
   };
 
-  /* const setSortDataValue = () => {
-    if (dateStart && dateEnd) {
-      const sortedRows = formatedRows.filter((item: CostsRecord) => {
-        dateStart && dateEnd ? (Date.parse(item.createdAt) >= dateStart && Date.parse(item.createdAt) <= dateEnd) : item;
-      });
-      setRows(sortedRows);
-    }
-  }; */
-
   const goToPrevPage = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage(currentPage === 1 ? 1 : currentPage - 1);
   };
 
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
+  };
+
+  const submitDate = () => {
+    dispatch(CostsActions.getCostsRequest({
+      sortType: '',
+      currentPage,
+      dateStart,
+      dateEnd,
+    }));
+    sortList('');
+  };
+
+  const resetDate = () => {
+    handleDateStartChanging('1609448400000');
+    handleDateEndChanging('3187285200000');
+    /* dispatch(CostsActions.getCostsRequest({
+      sortType: '',
+      currentPage,
+    }));
+    sortList(''); */
+    submitDate();
   };
 
   useEffect(() => {
@@ -90,6 +99,12 @@ const Costs = (): JSX.Element => {
       dateEnd,
     }));
   }, [dispatch, currentPage, dateStart, dateEnd]);
+
+  /* eslint-disable */
+  useEffect(() =>{
+    console.log(currentPage, dateStart, dateEnd, formatedRows);
+  }, [dateStart, dateEnd, currentPage])
+  /* eslint-enable */
 
   return (
     <Container className={styles.container}>
@@ -105,6 +120,20 @@ const Costs = (): JSX.Element => {
             handleDateStartChanging={handleDateStartChanging}
             handleDateEndChanging={handleDateEndChanging}
           />
+          <Button
+            style={{ float: 'right' }}
+            variant="contained"
+            onClick={submitDate}
+          >
+            Submit
+          </Button>
+          <Button
+            style={{ float: 'right' }}
+            variant="contained"
+            onClick={resetDate}
+          >
+            Reset
+          </Button>
           {/* <Toolbar>
             <Select
               value={sortType}
