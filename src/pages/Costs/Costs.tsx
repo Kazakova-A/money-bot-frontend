@@ -83,11 +83,12 @@ const Costs = (): JSX.Element => {
   const resetDate = () => {
     handleDateStartChanging('1609448400000');
     handleDateEndChanging('3187285200000');
-    /* dispatch(CostsActions.getCostsRequest({
+    dispatch(CostsActions.getCostsRequest({
       sortType: '',
       currentPage,
+      dateStart,
+      dateEnd,
     }));
-    sortList(''); */
     submitDate();
   };
 
